@@ -13,7 +13,7 @@ export const site = {
   role: 'Content Marketing and Brand Leader',
 
   // One bold line that sums up what you do and the value you bring
-  positioning: 'An experienced content marketing and brand leader.\nCombining audience needs with compelling stories underpinned by business objectives.',
+  positioning: 'An experienced content marketing and brand leader.\nCombining audience needs with compelling stories underpinned by strategic priorities.',
 
   // Your single strongest credential — a stat, a claim, a fact
   heroCredential: '100M+ content views delivered across three continents',
