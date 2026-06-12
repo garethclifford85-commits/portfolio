@@ -183,7 +183,7 @@ export const site = {
       result: 'Maximising shoots to bank content at scale',
       detail: 'I turn live events into high-volume content opportunities, planning and directing on-the-ground capture that banks weeks of assets in a single day. I\'ve run lean shoots that gather photography, video and social content across multiple brands at once, keeping costs low and output high.',
       ctaLabel: 'Watch Chelsea Flower Show highlights',
-      ctaUrl: 'https://youtu.be/KXpyky-NLyY?si=796i4Z2F-E4VCIyf',
+      ctaUrl: 'https://youtu.be/KXpyky-NLyY?si=j47Y_86hfAauungL',
       gradient: 'linear-gradient(135deg, #1a0d3d 0%, #ff4d6a 100%)',
       imageSrc: '/images/Joanna.png',
       imageFlip: true,
