@@ -1,0 +1,300 @@
+---
+import { site } from '../data/site.js';
+---
+
+<section class="contact" id="contact" aria-labelledby="contact-heading">
+  <div class="contact__inner container">
+
+    <div class="contact__header">
+      <p class="section-label" data-reveal>Contact</p>
+      <h2 class="section-heading contact__heading" id="contact-heading" data-reveal>
+        Let's talk<span class="accent-dot">.</span>
+      </h2>
+    </div>
+
+    <div class="contact__body">
+
+      <!-- Direct links -->
+      <div class="contact__links" data-reveal-group>
+        <a href={`mailto:${site.email}`} class="contact__link">
+          <span class="contact__link-icon" aria-hidden="true">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M2 4h16v12H2V4zm0 0l8 7 8-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span>Email me</span>
+          <span class="contact__link-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        {site.linkedin && (
+          <a href={site.linkedin} target="_blank" rel="noopener noreferrer" class="contact__link">
+            <span class="contact__link-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M4.5 6.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM3 8h3v9H3V8zm5 0h2.8v1.3c.4-.7 1.4-1.5 2.8-1.5C16 7.8 17 9.2 17 11.6V17h-3v-5c0-1.2-.4-2-1.4-2-1.2 0-1.6.8-1.6 2v5H8V8z"/>
+              </svg>
+            </span>
+            <span>LinkedIn</span>
+            <span class="contact__link-arrow" aria-hidden="true">↗</span>
+          </a>
+        )}
+
+        {site.twitter && (
+          <a href={site.twitter} target="_blank" rel="noopener noreferrer" class="contact__link">
+            <span class="contact__link-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M17.3 2h-2.5L10 8.2 5.7 2H2l6.3 9L2 18h2.5l4.5-5.4L13.7 18H17l-6.5-9.3L17.3 2z"/>
+              </svg>
+            </span>
+            <span>X / Twitter</span>
+            <span class="contact__link-arrow" aria-hidden="true">↗</span>
+          </a>
+        )}
+
+        {site.cvUrl && (
+          <a href={site.cvUrl} download class="contact__link">
+            <span class="contact__link-icon" aria-hidden="true">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M10 2v11m0 0l-4-4m4 4l4-4M3 15v2a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <span>Download CV</span>
+            <span class="contact__link-arrow" aria-hidden="true">↓</span>
+          </a>
+        )}
+      </div>
+
+      <!-- Contact form -->
+      <div class="contact__form-wrap" data-reveal>
+        <form
+          class="contact__form"
+          action="https://formspree.io/f/REPLACE_WITH_YOUR_FORM_ID"
+          method="POST"
+          aria-label="Contact form"
+          novalidate
+        >
+          <p class="contact__form-note">
+            Or drop me a message directly:
+          </p>
+
+          <div class="form-field">
+            <label class="form-label" for="contact-name">Your name</label>
+            <input
+              class="form-input"
+              type="text"
+              id="contact-name"
+              name="name"
+              placeholder="Jane Smith"
+              required
+              autocomplete="name"
+            />
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="contact-email">Your email</label>
+            <input
+              class="form-input"
+              type="email"
+              id="contact-email"
+              name="email"
+              placeholder="jane@company.com"
+              required
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="contact-message">Message</label>
+            <textarea
+              class="form-input form-textarea"
+              id="contact-message"
+              name="message"
+              placeholder="Tell me what you are working on..."
+              rows="5"
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn--primary form-submit">
+            Send message
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding-block: var(--space-32);
+    background: var(--surface);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .contact__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 900px) {
+    .contact__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+      gap: var(--space-6);
+    }
+
+    .contact__header {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* Deliberately large — "Let's talk." earns its own visual weight */
+  .contact__heading {
+    font-size: clamp(3rem, 9vw, 7.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.04em;
+  }
+
+  .accent-dot { color: var(--accent); }
+
+  /* ---- Links ---- */
+  .contact__links {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .contact__link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding-block: var(--space-4);
+    padding-left: 0;
+    border-bottom: 1px solid var(--border);
+    font-size: var(--text-base);
+    font-weight: 500;
+    min-height: 64px;
+    position: relative;
+    transition: color 0.25s ease, padding-left 0.3s var(--ease-out);
+    overflow: hidden;
+  }
+
+  .contact__link:first-child {
+    border-top: 1px solid var(--border);
+  }
+
+  /* Terracotta sweep line — mirrors the work tile accent bar */
+  .contact__link::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--accent);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.3s var(--ease-out);
+  }
+
+  .contact__link:hover {
+    color: var(--accent);
+    padding-left: var(--space-3);
+  }
+
+  .contact__link:hover::before {
+    transform: scaleY(1);
+  }
+
+  .contact__link-icon {
+    color: var(--text-muted);
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    transition: color 0.25s ease;
+  }
+
+  .contact__link:hover .contact__link-icon {
+    color: var(--accent);
+  }
+
+  .contact__link-arrow {
+    margin-left: auto;
+    color: var(--text-muted);
+    font-size: 1.1em;
+    transition: transform 0.25s var(--ease-out), color 0.25s ease;
+  }
+
+  .contact__link:hover .contact__link-arrow {
+    transform: translate(3px, -3px);
+    color: var(--accent);
+  }
+
+  /* ---- Form ---- */
+  .contact__form-note {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-6);
+    font-style: italic;
+  }
+
+  .contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .form-label {
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .form-input {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    padding: 0.875rem 1rem;
+    min-height: 48px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    width: 100%;
+  }
+
+  .form-input::placeholder {
+    color: var(--text-muted);
+    opacity: 0.5;
+  }
+
+  .form-input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(255, 224, 194, 0.12);
+  }
+
+  .form-textarea {
+    resize: vertical;
+    min-height: 130px;
+  }
+
+  .form-submit {
+    align-self: flex-start;
+    margin-top: var(--space-2);
+  }
+</style>

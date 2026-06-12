@@ -1,0 +1,214 @@
+---
+import { site } from '../data/site.js';
+---
+
+<section class="about" id="about" aria-labelledby="about-heading">
+  <!-- Ghost word — typographic depth, same device as hero dot grid -->
+  <div class="about__bg-word" aria-hidden="true">About</div>
+
+  <div class="about__inner container">
+
+    <div class="about__text">
+      <p class="section-label" data-reveal>About</p>
+      <h2 class="section-heading about__heading" id="about-heading" data-reveal>
+        A bit about me<span class="accent-dot">.</span>
+      </h2>
+
+      <div class="about__bio" data-reveal-group>
+        {site.about.bio.map((para) => (
+          <p>{para}</p>
+        ))}
+      </div>
+    </div>
+
+    <div class="about__portrait-wrap" data-reveal="left">
+      {site.about.portraitSrc ? (
+        <img
+          src={site.about.portraitSrc}
+          alt={site.about.portraitAlt}
+          class="about__portrait"
+          loading="lazy"
+          decoding="async"
+          width="480"
+          height="600"
+        />
+      ) : (
+        <div class="about__portrait-placeholder" aria-label={site.about.portraitAlt}>
+          <span class="about__portrait-initials" aria-hidden="true">
+            {site.initials}
+          </span>
+          <p class="about__portrait-hint">
+            Add your portrait to<br/><code>public/images/portrait.jpg</code><br/>
+            and update <code>src/data/site.js</code>
+          </p>
+        </div>
+      )}
+      <!-- Accent bar — deliberate mark, not a generic drop-shadow block -->
+      <div class="about__portrait-bar" aria-hidden="true"></div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .about {
+    padding-top: 0;
+    padding-bottom: var(--space-32);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Large ghost word — same spirit as the hero dot grid, adds depth without noise */
+  .about__bg-word {
+    position: absolute;
+    top: -0.1em;
+    right: -0.02em;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(10rem, 26vw, 22rem);
+    line-height: 1;
+    letter-spacing: -0.06em;
+    color: rgba(238, 238, 238, 0.05);
+    pointer-events: none;
+    user-select: none;
+    white-space: nowrap;
+    z-index: 0;
+  }
+
+  .about__inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-16);
+  }
+
+  @media (min-width: 900px) {
+    .about__inner {
+      grid-template-columns: 1fr 380px;
+      align-items: start;
+      gap: var(--space-24);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .about__inner {
+      grid-template-columns: 1fr 440px;
+    }
+  }
+
+  /* ---- Text side ---- */
+  .about__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  /* Larger heading — this section needs presence to match the hero's weight */
+  .about__heading {
+    font-size: clamp(2.5rem, 6vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+  }
+
+  .accent-dot { color: var(--accent); }
+
+  .about__bio {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    max-width: 58ch;
+  }
+
+  .about__bio p {
+    color: var(--text-muted);
+    font-size: var(--text-lg);
+    line-height: 1.75;
+  }
+
+  /* Lead paragraph — editorial standfirst treatment */
+  .about__bio p:first-child {
+    font-size: var(--text-xl);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  /* ---- Portrait side ---- */
+  .about__portrait-wrap {
+    position: relative;
+  }
+
+  @media (min-width: 900px) {
+    .about__portrait-wrap {
+      padding-top: var(--space-16);
+    }
+  }
+
+  .about__portrait {
+    width: 100%;
+    height: auto;
+    max-height: 600px;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 6px;
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
+
+  .about__portrait-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    background: var(--surface);
+    border: 2px dashed var(--border);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-4);
+    position: relative;
+    z-index: 1;
+  }
+
+  .about__portrait-initials {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(4rem, 15vw, 8rem);
+    color: var(--surface-2);
+    line-height: 1;
+  }
+
+  .about__portrait-hint {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  .about__portrait-hint code {
+    font-size: 0.9em;
+    color: var(--accent);
+    background: rgba(255, 224, 194, 0.1);
+    padding: 0.1em 0.3em;
+    border-radius: 2px;
+  }
+
+  /* Accent bar — thin terracotta line, replaces the generic corner-block cliché */
+  .about__portrait-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+    border-radius: 0 0 6px 6px;
+    opacity: 0.7;
+    z-index: 2;
+  }
+
+  /* ---- Reduced motion ---- */
+  @media (prefers-reduced-motion: reduce) {
+    .about__bg-word { display: none; }
+  }
+</style>

@@ -1,0 +1,121 @@
+---
+import { site } from '../data/site.js';
+const year = new Date().getFullYear();
+---
+
+<footer class="footer" role="contentinfo">
+  <div class="footer__inner container">
+
+    <div class="footer__bar">
+      <div class="footer__brand">
+        <span class="footer__name">{site.name}</span>
+        <span class="footer__role">{site.role}</span>
+      </div>
+
+      <nav class="footer__nav" aria-label="Footer navigation">
+        <a href="#work">Work</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        {site.cvUrl && <a href={site.cvUrl} download>CV</a>}
+      </nav>
+
+      <p class="footer__copy">
+        &copy; {year} {site.name}.
+      </p>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-top: var(--space-16);
+    padding-bottom: var(--space-8);
+    overflow: hidden;
+  }
+
+  .footer__inner {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Large name as page-ending typographic statement */
+  .footer__name-display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(3.5rem, 11vw, 10rem);
+    letter-spacing: -0.05em;
+    line-height: 0.9;
+    color: rgba(32, 32, 32, 0.07);
+    white-space: nowrap;
+    overflow: hidden;
+    padding-bottom: var(--space-8);
+    pointer-events: none;
+    user-select: none;
+    /* Slightly overflows to the right — intentional crop gives editorial tension */
+    margin-right: calc(var(--gutter) * -1);
+  }
+
+  .footer__bar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    align-items: flex-start;
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--border);
+  }
+
+  @media (min-width: 768px) {
+    .footer__bar {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .footer__brand {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .footer__name {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--text-lg);
+  }
+
+  .footer__role {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+  }
+
+  .footer__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4) var(--space-6);
+  }
+
+  .footer__nav a {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
+  .footer__nav a:hover {
+    color: var(--accent);
+  }
+
+  .footer__copy {
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .footer__name-display { display: none; }
+  }
+</style>

@@ -1,0 +1,197 @@
+---
+import { site } from '../data/site.js';
+---
+
+<section class="showreel" id="showreel" aria-labelledby="showreel-heading">
+  <div class="showreel__inner container">
+
+    <div class="showreel__header">
+      <p class="section-label" data-reveal>Showreel</p>
+      <h2
+        class="section-heading showreel__heading"
+        id="showreel-heading"
+        data-reveal
+      >
+        {site.showreelTitle}
+      </h2>
+      <p class="showreel__sub" data-reveal>{site.showreelSubtitle}</p>
+    </div>
+
+    <div class="showreel__grid" data-reveal-group>
+      {site.showreelVideos.map((video, i) => (
+        <div class="showreel__item">
+          <div class="showreel__video-wrap">
+            <div
+              class="showreel__overlay"
+              data-index={i}
+              role="button"
+              tabindex="0"
+              aria-label={`Play ${video.title}`}
+            >
+              <div class="showreel__play-btn" aria-hidden="true">
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+                  <polygon points="6,3 20,11 6,19" fill="currentColor"/>
+                </svg>
+              </div>
+            </div>
+
+            <iframe
+              class="showreel__iframe"
+              src="about:blank"
+              data-src={`${video.url}?autoplay=1&rel=0`}
+              title={video.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+
+          <div class="showreel__meta">
+            <h3 class="showreel__video-title">{video.title}</h3>
+            <p class="showreel__video-desc">{video.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.showreel__overlay').forEach((overlay) => {
+    function play() {
+      const wrap  = overlay.closest('.showreel__video-wrap');
+      const iframe = wrap?.querySelector<HTMLIFrameElement>('.showreel__iframe');
+      if (!iframe) return;
+      iframe.src = iframe.dataset.src ?? '';
+      overlay.style.opacity = '0';
+      overlay.style.pointerEvents = 'none';
+    }
+    overlay.addEventListener('click', play);
+    overlay.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); play(); }
+    });
+  });
+</script>
+
+<style>
+  .showreel {
+    padding-block: var(--space-32);
+    background: var(--surface);
+  }
+
+  .showreel__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    margin-bottom: var(--space-12);
+  }
+
+  .showreel__heading {
+    font-size: var(--text-4xl);
+  }
+
+  .showreel__sub {
+    font-size: var(--text-lg);
+    color: var(--text-muted);
+    max-width: 50ch;
+  }
+
+  /* ---- Video grid ---- */
+  .showreel__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 640px) {
+    .showreel__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .showreel__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+    }
+  }
+
+  /* ---- Individual item ---- */
+  .showreel__item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  /* 16:9 wrapper */
+  .showreel__video-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--surface-2);
+  }
+
+  /* Play overlay */
+  .showreel__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--surface) 0%, var(--surface-2) 100%);
+    transition: opacity 0.35s ease;
+  }
+
+  .showreel__play-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s var(--ease-out), background 0.2s ease;
+    box-shadow: 0 0 32px rgba(191, 75, 30, 0.25);
+  }
+
+  .showreel__overlay:hover .showreel__play-btn,
+  .showreel__overlay:focus-visible .showreel__play-btn {
+    transform: scale(1.1);
+    background: #d45a22;
+  }
+
+  .showreel__iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    z-index: 1;
+  }
+
+  /* Meta below each video */
+  .showreel__meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .showreel__video-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--text-base);
+    line-height: 1.3;
+  }
+
+  .showreel__video-desc {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+    line-height: 1.5;
+  }
+</style>

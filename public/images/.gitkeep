@@ -1,0 +1,2 @@
+# Drop your project images and portrait photo into this folder.
+# Reference them in src/data/site.js using paths like /images/project1.jpg
